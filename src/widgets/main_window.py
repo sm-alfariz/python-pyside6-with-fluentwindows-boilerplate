@@ -25,37 +25,37 @@ class Window(FluentWindow):
     def __init__(self):
         super().__init__()
         # create sub interface
-        self.homeInterface = Widget("Search Interface", self)
-        self.musicInterface = Widget("Music Interface", self)
-        self.videoInterface = Widget("Video Interface", self)
-        self.folderInterface = Widget("Folder Interface", self)
-        self.settingInterface = Widget("Setting Interface", self)
-        self.albumInterface = Widget("Album Interface", self)
-        self.albumInterface1 = Widget("Album Interface 1", self)
-        self.albumInterface2 = Widget("Album Interface 2", self)
-        self.albumInterface1_1 = Widget("Album Interface 1-1", self)
+        self.homeInterface = Widget("Home", self)
+        self.tasksInterface = Widget("Tasks", self)
+        self.contactsInterface = Widget("Contacts", self)
+        self.folderInterface = Widget("Folder", self)
+        self.settingInterface = Widget("Setting", self)
+        self.menu = Widget("Menu Item", self)
+        self.menu1 = Widget("Menu Item 1", self)
+        self.menu2 = Widget("Menu Item 2", self)
+        self.menu1_1 = Widget("Menu Item 1-1", self)
 
         self.initNavigation()
         self.initWindow()
 
     def initNavigation(self):
         self.addSubInterface(self.homeInterface, FIF.HOME, "Home")
-        self.addSubInterface(self.musicInterface, FIF.MUSIC, "Music library")
-        self.addSubInterface(self.videoInterface, FIF.VIDEO, "Video library")
+        self.addSubInterface(self.tasksInterface, FIF.CHECKBOX, "Tasks")
+        self.addSubInterface(self.contactsInterface, FIF.PEOPLE, "Contatcs")
 
         self.navigationInterface.addSeparator()
 
         self.addSubInterface(
-            self.albumInterface, FIF.ALBUM, "Albums", NavigationItemPosition.SCROLL
+            self.menu, FIF.DOCUMENT, "Menu", NavigationItemPosition.SCROLL
         )
         self.addSubInterface(
-            self.albumInterface1, FIF.ALBUM, "Album 1", parent=self.albumInterface
+            self.menu1, FIF.DOCUMENT, "Menu 1", parent=self.menu
         )
         self.addSubInterface(
-            self.albumInterface1_1, FIF.ALBUM, "Album 1.1", parent=self.albumInterface1
+            self.menu1_1, FIF.DOCUMENT, "Menu 1.1", parent=self.menu1
         )
         self.addSubInterface(
-            self.albumInterface2, FIF.ALBUM, "Album 2", parent=self.albumInterface
+            self.menu2, FIF.DOCUMENT, "Menu 2", parent=self.menu
         )
         self.addSubInterface(
             self.folderInterface,
@@ -80,19 +80,19 @@ class Window(FluentWindow):
         )
         
         # add badge to navigation item
-        item = self.navigationInterface.widget(self.videoInterface.objectName())
-        InfoBadge.attension(
+        item_tasks = self.navigationInterface.widget(self.tasksInterface.objectName())
+        InfoBadge.info(
             text=9,
-            parent=item.parent(),
-            target=item,
+            parent=item_tasks.parent(),
+            target=item_tasks,
             position=InfoBadgePosition.NAVIGATION_ITEM,
         )
 
-        item_home = self.navigationInterface.widget(self.homeInterface.objectName())
+        item_contacts = self.navigationInterface.widget(self.contactsInterface.objectName())
         InfoBadge.attension(
             text=11,
-            parent=item_home.parent(),
-            target=item_home,
+            parent=item_contacts.parent(),
+            target=item_contacts,
             position=InfoBadgePosition.NAVIGATION_ITEM,
         )
 
@@ -109,9 +109,9 @@ class Window(FluentWindow):
         desktop = QApplication.screens()[0].availableGeometry()
         w, h = desktop.width(), desktop.height()
         self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
-        self.navigationInterface.setCollapsible(False)        
+        self.navigationInterface.setCollapsible(True)        
         # 2. (Optional but recommended) Force the sidebar to maintain a specific expanded width
-        self.navigationInterface.setExpandWidth(280)  # Width in pixels
+        self.navigationInterface.setExpandWidth(220)  # Width in pixels
         # (This must be called after setExpandWidth)
         self.navigationInterface.setMinimumExpandWidth(800)
   
