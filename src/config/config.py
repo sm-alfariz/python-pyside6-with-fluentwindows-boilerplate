@@ -1,4 +1,5 @@
 # coding:utf-8
+import os
 import sys
 from enum import Enum
 
@@ -48,6 +49,8 @@ class Config(QConfig):
     
 
 
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+
 YEAR = 2026
 AUTHOR = "zhiyiYo"
 VERSION = __version__
@@ -62,4 +65,4 @@ EN_SUPPORT_URL = "https://qfluentwidgets.com/price/"
 
 cfg = Config()
 cfg.themeMode.value = Theme.DARK
-qconfig.load('config/config.json', cfg)
+qconfig.load(os.path.join(ROOT, 'config/config.json'), cfg)

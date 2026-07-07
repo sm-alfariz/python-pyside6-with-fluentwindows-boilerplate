@@ -1,7 +1,9 @@
 # coding: utf-8
+import os
 from enum import Enum
 
 from qfluentwidgets import StyleSheetBase, Theme, qconfig
+from ..config.config import ROOT
 
 
 class StyleSheet(StyleSheetBase, Enum):
@@ -14,4 +16,4 @@ class StyleSheet(StyleSheetBase, Enum):
 
     def path(self, theme=Theme.AUTO):
         theme = qconfig.theme if theme == Theme.AUTO else theme
-        return f"./resource/styles/{theme.value.lower()}/{self.value}.qss"
+        return os.path.join(ROOT, f"resource/styles/{theme.value.lower()}/{self.value}.qss")

@@ -1,4 +1,5 @@
 # coding:utf-8
+import os
 
 from PySide6.QtCore import Qt, QRectF
 from PySide6.QtGui import QPixmap, QPainter, QColor, QBrush, QPainterPath, QLinearGradient
@@ -7,7 +8,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from qfluentwidgets import ScrollArea, isDarkTheme, FluentIcon
 from ..components.link_card import LinkCardView
 from ..common.style_sheet import StyleSheet
-from ..config.config import HELP_URL, REPO_URL, EXAMPLE_URL, FEEDBACK_URL
+from ..config.config import HELP_URL, REPO_URL, EXAMPLE_URL, FEEDBACK_URL, ROOT
 
 class BannerWidget(QWidget):
     """ Banner widget """
@@ -18,7 +19,7 @@ class BannerWidget(QWidget):
 
         self.vBoxLayout = QVBoxLayout(self)
         self.galleryLabel = QLabel('FdZ PySide6 + qfluentwidgets ', self)
-        self.banner = QPixmap('./resource/img/header1.png')
+        self.banner = QPixmap(os.path.join(ROOT, 'resource/img/header1.png'))
         self.linkCardView = LinkCardView(self)
 
         self.galleryLabel.setObjectName('galleryLabel')
@@ -30,7 +31,7 @@ class BannerWidget(QWidget):
         self.vBoxLayout.setAlignment(Qt.AlignLeft | Qt.AlignTop)
 
         self.linkCardView.addCard(
-            './resource/img/icon.png',
+            os.path.join(ROOT, 'resource/img/icon.png'),
             self.tr('Getting started'),
             self.tr('An overview of app development options and samples.'),
             HELP_URL

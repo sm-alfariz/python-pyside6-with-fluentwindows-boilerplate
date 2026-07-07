@@ -1,5 +1,6 @@
 # coding:utf-8
 
+import os
 import sys
 
 from PySide6.QtCore import QUrl, QTimer
@@ -16,16 +17,18 @@ from qfluentwidgets import (
     isDarkTheme
 )
 from qfluentwidgets import FluentIcon as FIF
-from src.views.blank_widget import BlankWidget as Widget 
+from src.views.blank_widget import BlankWidget as Widget
 from src.views.home_window import HomeInterface
 from src.views.setting_interface import SettingInterface
-from src.config.config import cfg
+from src.config.config import cfg, ROOT
 
 
 class Window(FluentWindow):
 
     def __init__(self):
         super().__init__()
+        # set window icon early to prevent null pixmap in title bar
+        self.setWindowIcon(QIcon(os.path.join(ROOT, "resource/img/icon.png")))
         # create system theme listener
         self.themeListener = SystemThemeListener(self)
         # create sub interface
@@ -74,7 +77,7 @@ class Window(FluentWindow):
         # add custom widget to bottom
         self.navigationInterface.addWidget(
             routeKey="avatar",
-            widget=NavigationAvatarWidget("Fluent-Widgets", "resource/img/icon.png"),
+            widget=NavigationAvatarWidget("Fluent-Widgets", os.path.join(ROOT, "resource/img/icon.png")),
             onClick=self.showMessageBox,
             position=NavigationItemPosition.BOTTOM,
         )
@@ -111,7 +114,6 @@ class Window(FluentWindow):
 
     def initWindow(self):
         self.resize(900, 700)
-        self.setWindowIcon(QIcon("resource/img/icon.png"))
         self.setWindowTitle("PySide6 + FluentWidgets")
         self.setMicaEffectEnabled(cfg.get(cfg.micaEnabled))
         desktop = QApplication.screens()[0].availableGeometry()

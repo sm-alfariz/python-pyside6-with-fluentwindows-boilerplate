@@ -1,10 +1,17 @@
 # coding:utf-8
 import sys, os
 from PySide6.QtWidgets import QApplication
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QLoggingCategory
 # from qfluentwidgets import setTheme
 from src.views.main_window import Window
 from src.config.config import cfg
+
+# filter noisy Qt warnings from third-party widgets
+QLoggingCategory.setFilterRules("""
+    qt.gui.pixmap.warning=false
+    qt.qpa.window.warning=false
+    qt.qpa.xcb.warning=false
+""")
 
 # enable dpi scale
 if cfg.get(cfg.dpiScale) != "Auto":
