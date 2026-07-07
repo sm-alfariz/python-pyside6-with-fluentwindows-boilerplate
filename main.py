@@ -3,7 +3,7 @@ import sys, os
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import Qt
 # from qfluentwidgets import setTheme
-from src.widgets.main_window import Window
+from src.views.main_window import Window
 from src.config.config import cfg
 
 # enable dpi scale

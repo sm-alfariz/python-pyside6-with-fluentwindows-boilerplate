@@ -8,8 +8,6 @@ from PySide6.QtWidgets import QApplication
 from qfluentwidgets import (
     NavigationItemPosition,
     MessageBox,
-    setTheme,
-    Theme,
     FluentWindow,
     NavigationAvatarWidget,
     InfoBadge,
@@ -18,8 +16,9 @@ from qfluentwidgets import (
     isDarkTheme
 )
 from qfluentwidgets import FluentIcon as FIF
-from src.widgets.blank_widget import BlankWidget as Widget 
-from src.widgets.home_window import HomeInterface
+from src.views.blank_widget import BlankWidget as Widget 
+from src.views.home_window import HomeInterface
+from src.views.setting_interface import SettingInterface
 from src.config.config import cfg
 
 
@@ -34,7 +33,7 @@ class Window(FluentWindow):
         self.tasksInterface = Widget("Tasks", self)
         self.contactsInterface = Widget("Contacts", self)
         self.folderInterface = Widget("Folder", self)
-        self.settingInterface = Widget("Setting", self)
+        self.settingInterface = SettingInterface(self)
         self.menu = Widget("Menu Item", self)
         self.menu1 = Widget("Menu Item 1", self)
         self.menu2 = Widget("Menu Item 2", self)
@@ -125,6 +124,7 @@ class Window(FluentWindow):
         self.navigationInterface.setMinimumExpandWidth(800)
   
         self.navigationInterface.expand(useAni=True)
+        QApplication.processEvents()
 
     def showMessageBox(self):
         w = MessageBox(
