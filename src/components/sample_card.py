@@ -1,12 +1,18 @@
 # coding:utf-8
-from PySide6.QtCore import Qt, Signal
-from PySide6.QtGui import QPixmap
-from PySide6.QtWidgets import QWidget, QFrame, QLabel, QVBoxLayout, QHBoxLayout
+from PySide6.QtCore import Qt, Signal, QObject
+from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 
 from qfluentwidgets import IconWidget, TextWrap, FlowLayout, CardWidget
-from ..common.signal_bus import signalBus
-from ..common.style_sheet import StyleSheet
 
+class SignalBus(QObject):
+    """ Signal bus """
+
+    switchToSampleCard = Signal(str, int)
+    micaEnableChanged = Signal(bool)
+    supportSignal = Signal()
+
+
+signalBus = SignalBus()
 
 class SampleCard(CardWidget):
     """ Sample card """
