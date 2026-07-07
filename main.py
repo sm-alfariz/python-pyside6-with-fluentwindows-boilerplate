@@ -1,7 +1,7 @@
 # coding:utf-8
 import sys, os
 from PySide6.QtWidgets import QApplication
-from PySide6.QtCore import Qt, QLoggingCategory
+from PySide6.QtCore import Qt, QLoggingCategory, qInstallMessageHandler
 # from qfluentwidgets import setTheme
 from src.views.main_window import Window
 from src.config.config import cfg
@@ -12,6 +12,20 @@ QLoggingCategory.setFilterRules("""
     qt.qpa.window.warning=false
     qt.qpa.xcb.warning=false
 """)
+
+# fallback: silence Qt warnings that bypass categories
+# fix bug qfluentwidgets temporary library with warning message 
+# QPixmap::scaled: Pixmap is a null pixmap
+
+_old_handler = None
+def _qt_msg_handler(msg_type, context, msg):
+    msg_lower = msg.lower()
+    if 'null pixmap' in msg_lower or 'window opacity' in msg_lower or 'propagatesizehints' in msg_lower:
+        return
+    if _old_handler:
+        _old_handler(msg_type, context, msg)
+
+qInstallMessageHandler(_qt_msg_handler)
 
 # enable dpi scale
 if cfg.get(cfg.dpiScale) != "Auto":
