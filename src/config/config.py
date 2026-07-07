@@ -61,5 +61,5 @@ EN_SUPPORT_URL = "https://qfluentwidgets.com/price/"
 
 
 cfg = Config()
-cfg.themeMode.value = Theme.AUTO
+cfg.themeMode.value = Theme.DARK
 qconfig.load('config/config.json', cfg)
