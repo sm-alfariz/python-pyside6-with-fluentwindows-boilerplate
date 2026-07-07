@@ -1,5 +1,4 @@
 # coding:utf-8
-import sys
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QHBoxLayout
@@ -9,6 +8,12 @@ from qfluentwidgets import (
 )
 
 class BlankWidget(QWidget):
+    """
+    just example in real change this with your widget 
+
+    Args:
+        QWidget (): _description_
+    """
     def __init__(self, text: str, parent=None):
         super().__init__(parent=parent)
         self.label = SubtitleLabel(text, self)

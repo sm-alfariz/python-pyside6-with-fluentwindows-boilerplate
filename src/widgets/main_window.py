@@ -2,7 +2,7 @@
 
 import sys
 
-from PySide6.QtCore import QUrl
+from PySide6.QtCore import QUrl, QTimer
 from PySide6.QtGui import QIcon, QDesktopServices
 from PySide6.QtWidgets import QApplication
 from qfluentwidgets import (
@@ -13,19 +13,24 @@ from qfluentwidgets import (
     FluentWindow,
     NavigationAvatarWidget,
     InfoBadge,
-    InfoBadgePosition
+    InfoBadgePosition,
+    SystemThemeListener,
+    isDarkTheme
 )
 from qfluentwidgets import FluentIcon as FIF
 from src.widgets.blank_widget import BlankWidget as Widget 
-
+from src.widgets.home_window import HomeInterface
+from src.config.config import cfg
 
 
 class Window(FluentWindow):
 
     def __init__(self):
         super().__init__()
+        # create system theme listener
+        self.themeListener = SystemThemeListener(self)
         # create sub interface
-        self.homeInterface = Widget("Home", self)
+        self.homeInterface = HomeInterface(self)
         self.tasksInterface = Widget("Tasks", self)
         self.contactsInterface = Widget("Contacts", self)
         self.folderInterface = Widget("Folder", self)
@@ -37,6 +42,9 @@ class Window(FluentWindow):
 
         self.initNavigation()
         self.initWindow()
+        
+        # start theme listener
+        self.themeListener.start()
 
     def initNavigation(self):
         self.addSubInterface(self.homeInterface, FIF.HOME, "Home")
@@ -105,7 +113,8 @@ class Window(FluentWindow):
     def initWindow(self):
         self.resize(900, 700)
         self.setWindowIcon(QIcon("resource/img/icon.png"))
-        self.setWindowTitle("PyQt-Fluent-Widgets")
+        self.setWindowTitle("PySide6 + FluentWidgets")
+        self.setMicaEffectEnabled(cfg.get(cfg.micaEnabled))
         desktop = QApplication.screens()[0].availableGeometry()
         w, h = desktop.width(), desktop.height()
         self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
@@ -128,10 +137,24 @@ class Window(FluentWindow):
 
         if w.exec():
             QDesktopServices.openUrl(QUrl("https://afdian.net/a/zhiyiYo"))
+    
+    def closeEvent(self, e):
+        self.themeListener.terminate()
+        self.themeListener.deleteLater()
+        super().closeEvent(e)
 
+    def _onThemeChangedFinished(self):
+        super()._onThemeChangedFinished()
+
+        # retry
+        if self.isMicaEffectEnabled():
+            QTimer.singleShot(
+                100,
+                lambda: self.windowEffect.setMicaEffect(self.winId(), isDarkTheme()),
+            )
 
 if __name__ == "__main__":
-    setTheme(Theme.DARK)
+    # setTheme(Theme.DARK)
 
     app = QApplication(sys.argv)
     w = Window()

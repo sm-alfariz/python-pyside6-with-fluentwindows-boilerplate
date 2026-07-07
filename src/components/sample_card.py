@@ -3,6 +3,7 @@ from PySide6.QtCore import Qt, Signal, QObject
 from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 
 from qfluentwidgets import IconWidget, TextWrap, FlowLayout, CardWidget
+from ..common.style_sheet import StyleSheet
 
 class SignalBus(QObject):
     """ Signal bus """
