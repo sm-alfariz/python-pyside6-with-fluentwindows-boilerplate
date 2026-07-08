@@ -26,11 +26,10 @@ from src.config.config import (
 
 class TestLanguage:
     def test_members(self):
-        assert Language.CHINESE_SIMPLIFIED is not None
-        assert Language.CHINESE_TRADITIONAL is not None
+        assert Language.INDONESIA is not None
         assert Language.ENGLISH is not None
         assert Language.AUTO is not None
-        assert len(Language) == 4
+        assert len(Language) == 3
 
     def test_values_are_qlocale(self):
         for lang in Language:
@@ -41,9 +40,9 @@ class TestLanguageSerializer:
     def setup_method(self):
         self.ser = LanguageSerializer()
 
-    def test_serialize_chinese_simplified(self):
-        # QLocale(Chinese, China).name() == "zh_CN"
-        assert self.ser.serialize(Language.CHINESE_SIMPLIFIED) == "zh_CN"
+    def test_serialize_indonesia(self):
+        # QLocale(Indonesian, Indonesia).name() == "id_ID"
+        assert self.ser.serialize(Language.INDONESIA) == "id_ID"
 
     def test_serialize_auto(self):
         assert self.ser.serialize(Language.AUTO) == "Auto"

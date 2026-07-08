@@ -12,8 +12,7 @@ from qfluentwidgets import (qconfig, QConfig, ConfigItem, OptionsConfigItem, Boo
 class Language(Enum):
     """ Language enumeration """
 
-    CHINESE_SIMPLIFIED = QLocale(QLocale.Chinese, QLocale.China)
-    CHINESE_TRADITIONAL = QLocale(QLocale.Chinese, QLocale.HongKong)
+    INDONESIA = QLocale(QLocale.Indonesian, QLocale.Indonesia)
     ENGLISH = QLocale(QLocale.English)
     AUTO = QLocale()
 

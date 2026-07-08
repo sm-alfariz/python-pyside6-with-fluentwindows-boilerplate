@@ -77,7 +77,7 @@ class SettingInterface(ScrollArea):
             FIF.LANGUAGE,
             self.tr('Language'),
             self.tr('Set your preferred language for UI'),
-            texts=['ID','Indonesia', 'English', self.tr('Use system setting')],
+            texts=['Bahasa Indonesia', 'English', self.tr('Use system setting')],
             parent=self.personalGroup
         )
 
