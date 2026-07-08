@@ -1,6 +1,10 @@
 # PyQt-PySide-Fluent-Widgets
 
+![Local Screenshot](resource/img/sreen-shoot-dark.png)
+
 A **PySide6 desktop application boilerplate** using [qfluentwidgets](https://qfluentwidgets.com/) — Microsoft Fluent Design for Qt/PySide. Provides a structured project scaffold with navigation, settings, sample cards, and light/dark theming.
+
+minimal and re-custome + some fix with linux waylan/x11 adjustment dashboard app from [qfluentwidgets](https://qfluentwidgets.com/) examples
 
 Python 3.12+ · PySide6 · Fluent Design System
 
