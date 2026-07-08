@@ -1,4 +1,12 @@
 # coding:utf-8
+"""
+main_window.py
+Last updated: 2026-07-08
+
+Main window — FluentWindow subclass. Registers all sub-interfaces
+(Home, Tasks, Contacts, Folder, Menu, Settings) in the navigation
+sidebar with badges and acrylic effect.
+"""
 
 import os
 import sys

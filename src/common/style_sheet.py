@@ -1,4 +1,11 @@
 # coding: utf-8
+"""
+style_sheet.py
+Last updated: 2026-07-08
+
+StyleSheet enum resolving theme-aware QSS file paths. Maps component names
+to ``resource/styles/{theme}/{name}.qss``.
+"""
 import os
 from enum import Enum
 

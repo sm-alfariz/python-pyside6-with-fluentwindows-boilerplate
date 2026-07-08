@@ -1,4 +1,11 @@
 # coding:utf-8
+"""
+link_card.py
+Last updated: 2026-07-08
+
+Clickable link card (198×220) and a horizontal-scroll container
+(LinkCardView). Opens a URL in the system browser on click.
+"""
 from PySide6.QtCore import Qt, QUrl
 from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import QFrame, QLabel, QVBoxLayout, QWidget, QHBoxLayout

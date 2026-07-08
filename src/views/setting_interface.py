@@ -1,4 +1,11 @@
 # coding:utf-8
+"""
+setting_interface.py
+Last updated: 2026-07-08
+
+Settings page — grouped setting cards for personalization (theme, color,
+zoom, language), material (blur radius), and about (help, feedback, version).
+"""
 from qfluentwidgets import (SettingCardGroup,
                             SwitchSettingCard,
                             OptionsSettingCard,

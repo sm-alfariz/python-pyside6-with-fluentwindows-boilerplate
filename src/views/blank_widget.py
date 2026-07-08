@@ -1,4 +1,11 @@
 # coding:utf-8
+"""
+blank_widget.py
+Last updated: 2026-07-08
+
+Generic placeholder widget with a centered subtitle label. Used as a stub
+for nav items that lack a real implementation.
+"""
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QHBoxLayout

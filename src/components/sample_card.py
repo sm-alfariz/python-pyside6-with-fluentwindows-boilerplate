@@ -1,4 +1,11 @@
 # coding:utf-8
+"""
+sample_card.py
+Last updated: 2026-07-08
+
+Clickable sample card (360×90) and a flow-layout container
+(SampleCardView). Emits ``switchToSampleCard`` signal on click.
+"""
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 from qfluentwidgets import IconWidget, TextWrap, FlowLayout, CardWidget

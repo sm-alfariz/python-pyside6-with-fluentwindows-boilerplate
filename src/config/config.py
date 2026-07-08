@@ -1,4 +1,12 @@
 # coding:utf-8
+"""
+config.py
+Last updated: 2026-07-08
+
+Application configuration via qfluentwidgets QConfig — persisted settings
+(theme, DPI, language, blur radius), URL constants, and the module-level
+``cfg`` singleton (forced to DARK theme at import).
+"""
 import os
 import sys
 from enum import Enum

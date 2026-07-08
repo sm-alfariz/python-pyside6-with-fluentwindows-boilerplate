@@ -1,4 +1,11 @@
 # coding:utf-8
+"""
+home_window.py
+Last updated: 2026-07-08
+
+Home interface — BannerWidget (gradient + background image + link cards)
+inside a ScrollArea (HomeInterface). The landing page of the app.
+"""
 import os
 
 from PySide6.QtCore import Qt, QRectF
