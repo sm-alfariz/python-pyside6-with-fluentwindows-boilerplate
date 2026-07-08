@@ -14,3 +14,10 @@ dependencies = [
     "ruff>=0.15.20",
     "scipy>=1.18.0",
 ]
+
+[dependency-groups]
+test = [
+    "pytest>=8",
+    "pytest-cov>=7.1.0",
+    "pytest-qt>=4",
+]
