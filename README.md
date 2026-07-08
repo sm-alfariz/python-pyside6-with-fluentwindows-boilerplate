@@ -137,6 +137,9 @@ ruff check src/
 
 # Format
 ruff format src/
+
+# Testing 
+uv run pytest tests/
 ```
 
 ---
