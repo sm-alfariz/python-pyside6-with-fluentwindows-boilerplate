@@ -6,30 +6,39 @@ Last updated: 2026-07-08
 Home interface — BannerWidget (gradient + background image + link cards)
 inside a ScrollArea (HomeInterface). The landing page of the app.
 """
+
 import os
 
-from PySide6.QtCore import Qt, QRectF
-from PySide6.QtGui import QPixmap, QPainter, QColor, QBrush, QPainterPath, QLinearGradient
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
+from PySide6.QtCore import QRectF, Qt
+from PySide6.QtGui import (
+    QBrush,
+    QColor,
+    QLinearGradient,
+    QPainter,
+    QPainterPath,
+    QPixmap,
+)
+from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
+from qfluentwidgets import FluentIcon, ScrollArea, isDarkTheme
 
-from qfluentwidgets import ScrollArea, isDarkTheme, FluentIcon
-from ..components.link_card import LinkCardView
 from ..common.style_sheet import StyleSheet
-from ..config.config import HELP_URL, REPO_URL, EXAMPLE_URL, FEEDBACK_URL, ROOT
+from ..components.link_card import LinkCardView
+from ..config.config import EXAMPLE_URL, FEEDBACK_URL, HELP_URL, REPO_URL, ROOT
+
 
 class BannerWidget(QWidget):
-    """ Banner widget """
+    """Banner widget"""
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.setFixedHeight(336)
 
         self.vBoxLayout = QVBoxLayout(self)
-        self.galleryLabel = QLabel('FdZ PySide6 + qfluentwidgets ', self)
-        self.banner = QPixmap(os.path.join(ROOT, 'resource/img/header1.png'))
+        self.galleryLabel = QLabel("FdZ PySide6 + qfluentwidgets ", self)
+        self.banner = QPixmap(os.path.join(ROOT, "resource/img/header1.png"))
         self.linkCardView = LinkCardView(self)
 
-        self.galleryLabel.setObjectName('galleryLabel')
+        self.galleryLabel.setObjectName("galleryLabel")
 
         self.vBoxLayout.setSpacing(0)
         self.vBoxLayout.setContentsMargins(0, 20, 0, 0)
@@ -38,49 +47,48 @@ class BannerWidget(QWidget):
         self.vBoxLayout.setAlignment(Qt.AlignLeft | Qt.AlignTop)
 
         self.linkCardView.addCard(
-            os.path.join(ROOT, 'resource/img/icon.png'),
-            self.tr('Getting started'),
-            self.tr('An overview of app development options and samples.'),
-            HELP_URL
+            os.path.join(ROOT, "resource/img/icon.png"),
+            self.tr("Getting started"),
+            self.tr("An overview of app development options and samples."),
+            HELP_URL,
         )
 
         self.linkCardView.addCard(
             FluentIcon.GITHUB,
-            self.tr('GitHub repo'),
+            self.tr("GitHub repo"),
             self.tr(
-                'The latest fluent design controls and styles for your applications.'),
-            REPO_URL
+                "The latest fluent design controls and styles for your applications."
+            ),
+            REPO_URL,
         )
 
         self.linkCardView.addCard(
             FluentIcon.CODE,
-            self.tr('Code samples'),
-            self.tr(
-                'Find samples that demonstrate specific tasks, features and APIs.'),
-            EXAMPLE_URL
+            self.tr("Code samples"),
+            self.tr("Find samples that demonstrate specific tasks, features and APIs."),
+            EXAMPLE_URL,
         )
 
         self.linkCardView.addCard(
             FluentIcon.FEEDBACK,
-            self.tr('Send feedback'),
-            self.tr('Help us improve PyQt-Fluent-Widgets by providing feedback.'),
-            FEEDBACK_URL
+            self.tr("Send feedback"),
+            self.tr("Help us improve PyQt-Fluent-Widgets by providing feedback."),
+            FEEDBACK_URL,
         )
 
     def paintEvent(self, e):
         super().paintEvent(e)
         painter = QPainter(self)
-        painter.setRenderHints(
-            QPainter.SmoothPixmapTransform | QPainter.Antialiasing)
+        painter.setRenderHints(QPainter.SmoothPixmapTransform | QPainter.Antialiasing)
         painter.setPen(Qt.NoPen)
 
         path = QPainterPath()
         path.setFillRule(Qt.WindingFill)
         w, h = self.width(), self.height()
         path.addRoundedRect(QRectF(0, 0, w, h), 10, 10)
-        path.addRect(QRectF(0, h-50, 50, 50))
-        path.addRect(QRectF(w-50, 0, 50, 50))
-        path.addRect(QRectF(w-50, h-50, 50, 50))
+        path.addRect(QRectF(0, h - 50, 50, 50))
+        path.addRect(QRectF(w - 50, 0, 50, 50))
+        path.addRect(QRectF(w - 50, h - 50, 50, 50))
         path = path.simplified()
 
         # init linear gradient effect
@@ -98,12 +106,13 @@ class BannerWidget(QWidget):
 
         # draw banner image
         pixmap = self.banner.scaled(
-            self.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation)
+            self.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation
+        )
         painter.fillPath(path, QBrush(pixmap))
 
 
 class HomeInterface(ScrollArea):
-    """ Home interface """
+    """Home interface"""
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
@@ -114,8 +123,8 @@ class HomeInterface(ScrollArea):
         self.__initWidget()
 
     def __initWidget(self):
-        self.view.setObjectName('view')
-        self.setObjectName('homeInterface')
+        self.view.setObjectName("view")
+        self.setObjectName("homeInterface")
         StyleSheet.HOME_WIDGET_STYLE.apply(self)
 
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -126,5 +135,3 @@ class HomeInterface(ScrollArea):
         self.vBoxLayout.setSpacing(40)
         self.vBoxLayout.addWidget(self.banner)
         self.vBoxLayout.setAlignment(Qt.AlignTop)
-
-   

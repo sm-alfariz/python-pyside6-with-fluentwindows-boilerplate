@@ -7,18 +7,29 @@ Application configuration via qfluentwidgets QConfig — persisted settings
 (theme, DPI, language, blur radius), URL constants, and the module-level
 ``cfg`` singleton (forced to DARK theme at import).
 """
+
 import os
 import sys
 from enum import Enum
 
 from PySide6.QtCore import QLocale
-from qfluentwidgets import (qconfig, QConfig, ConfigItem, OptionsConfigItem, BoolValidator,
-                            OptionsValidator, RangeConfigItem, RangeValidator,
-                            Theme, ConfigSerializer, __version__)
+from qfluentwidgets import (
+    BoolValidator,
+    ConfigItem,
+    ConfigSerializer,
+    OptionsConfigItem,
+    OptionsValidator,
+    QConfig,
+    RangeConfigItem,
+    RangeValidator,
+    Theme,
+    __version__,
+    qconfig,
+)
 
 
 class Language(Enum):
-    """ Language enumeration """
+    """Language enumeration"""
 
     INDONESIA = QLocale(QLocale.Indonesian, QLocale.Indonesia)
     ENGLISH = QLocale(QLocale.English)
@@ -26,7 +37,7 @@ class Language(Enum):
 
 
 class LanguageSerializer(ConfigSerializer):
-    """ Language serializer """
+    """Language serializer"""
 
     def serialize(self, language):
         return language.value.name() if language != Language.AUTO else "Auto"
@@ -36,24 +47,34 @@ class LanguageSerializer(ConfigSerializer):
 
 
 def isWin11():
-    return sys.platform == 'win32' and sys.getwindowsversion().build >= 22000
+    return sys.platform == "win32" and sys.getwindowsversion().build >= 22000
 
 
 class Config(QConfig):
-    """ Config of application """
+    """Config of application"""
 
     # main window
     micaEnabled = ConfigItem("MainWindow", "MicaEnabled", isWin11(), BoolValidator())
     dpiScale = OptionsConfigItem(
-        "MainWindow", "DpiScale", "Auto", OptionsValidator([1, 1.25, 1.5, 1.75, 2, "Auto"]), restart=True)
+        "MainWindow",
+        "DpiScale",
+        "Auto",
+        OptionsValidator([1, 1.25, 1.5, 1.75, 2, "Auto"]),
+        restart=True,
+    )
     language = OptionsConfigItem(
-        "MainWindow", "Language", Language.AUTO, OptionsValidator(Language), LanguageSerializer(), restart=True)
+        "MainWindow",
+        "Language",
+        Language.AUTO,
+        OptionsValidator(Language),
+        LanguageSerializer(),
+        restart=True,
+    )
 
     # Material
-    blurRadius  = RangeConfigItem("Material", "AcrylicBlurRadius", 15, RangeValidator(0, 40))
-
-
-    
+    blurRadius = RangeConfigItem(
+        "Material", "AcrylicBlurRadius", 15, RangeValidator(0, 40)
+    )
 
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
@@ -72,4 +93,4 @@ EN_SUPPORT_URL = "https://qfluentwidgets.com/price/"
 
 cfg = Config()
 cfg.themeMode.value = Theme.DARK
-qconfig.load(os.path.join(ROOT, 'config/config.json'), cfg)
+qconfig.load(os.path.join(ROOT, "config/config.json"), cfg)

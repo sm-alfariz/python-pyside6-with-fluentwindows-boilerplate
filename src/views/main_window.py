@@ -11,28 +11,28 @@ sidebar with badges and acrylic effect.
 import os
 import sys
 
-from PySide6.QtCore import QUrl, QTimer
-from PySide6.QtGui import QIcon, QDesktopServices
+from PySide6.QtCore import QTimer, QUrl
+from PySide6.QtGui import QDesktopServices, QIcon
 from PySide6.QtWidgets import QApplication
+from qfluentwidgets import FluentIcon as FIF
 from qfluentwidgets import (
-    NavigationItemPosition,
-    MessageBox,
     FluentWindow,
-    NavigationAvatarWidget,
     InfoBadge,
     InfoBadgePosition,
+    MessageBox,
+    NavigationAvatarWidget,
+    NavigationItemPosition,
     SystemThemeListener,
-    isDarkTheme
+    isDarkTheme,
 )
-from qfluentwidgets import FluentIcon as FIF
+
+from src.config.config import ROOT, cfg
 from src.views.blank_widget import BlankWidget as Widget
 from src.views.home_window import HomeInterface
 from src.views.setting_interface import SettingInterface
-from src.config.config import cfg, ROOT
 
 
 class Window(FluentWindow):
-
     def __init__(self):
         super().__init__()
         # set window icon early to prevent null pixmap in title bar
@@ -52,7 +52,7 @@ class Window(FluentWindow):
 
         self.initNavigation()
         self.initWindow()
-        
+
         # start theme listener
         self.themeListener.start()
 
@@ -66,15 +66,9 @@ class Window(FluentWindow):
         self.addSubInterface(
             self.menu, FIF.DOCUMENT, "Menu", NavigationItemPosition.SCROLL
         )
-        self.addSubInterface(
-            self.menu1, FIF.DOCUMENT, "Menu 1", parent=self.menu
-        )
-        self.addSubInterface(
-            self.menu1_1, FIF.DOCUMENT, "Menu 1.1", parent=self.menu1
-        )
-        self.addSubInterface(
-            self.menu2, FIF.DOCUMENT, "Menu 2", parent=self.menu
-        )
+        self.addSubInterface(self.menu1, FIF.DOCUMENT, "Menu 1", parent=self.menu)
+        self.addSubInterface(self.menu1_1, FIF.DOCUMENT, "Menu 1.1", parent=self.menu1)
+        self.addSubInterface(self.menu2, FIF.DOCUMENT, "Menu 2", parent=self.menu)
         self.addSubInterface(
             self.folderInterface,
             FIF.FOLDER,
@@ -85,7 +79,9 @@ class Window(FluentWindow):
         # add custom widget to bottom
         self.navigationInterface.addWidget(
             routeKey="avatar",
-            widget=NavigationAvatarWidget("Fluent-Widgets", os.path.join(ROOT, "resource/img/icon.png")),
+            widget=NavigationAvatarWidget(
+                "Fluent-Widgets", os.path.join(ROOT, "resource/img/icon.png")
+            ),
             onClick=self.showMessageBox,
             position=NavigationItemPosition.BOTTOM,
         )
@@ -96,7 +92,7 @@ class Window(FluentWindow):
             "Settings",
             NavigationItemPosition.BOTTOM,
         )
-        
+
         # add badge to navigation item
         item_tasks = self.navigationInterface.widget(self.tasksInterface.objectName())
         InfoBadge.info(
@@ -106,7 +102,9 @@ class Window(FluentWindow):
             position=InfoBadgePosition.NAVIGATION_ITEM,
         )
 
-        item_contacts = self.navigationInterface.widget(self.contactsInterface.objectName())
+        item_contacts = self.navigationInterface.widget(
+            self.contactsInterface.objectName()
+        )
         InfoBadge.attension(
             text=11,
             parent=item_contacts.parent(),
@@ -127,12 +125,12 @@ class Window(FluentWindow):
         desktop = QApplication.screens()[0].availableGeometry()
         w, h = desktop.width(), desktop.height()
         self.move(w // 2 - self.width() // 2, h // 2 - self.height() // 2)
-        self.navigationInterface.setCollapsible(True)        
+        self.navigationInterface.setCollapsible(True)
         # 2. (Optional but recommended) Force the sidebar to maintain a specific expanded width
         self.navigationInterface.setExpandWidth(220)  # Width in pixels
         # (This must be called after setExpandWidth)
         self.navigationInterface.setMinimumExpandWidth(800)
-  
+
         self.navigationInterface.expand(useAni=True)
         QApplication.processEvents()
 
@@ -147,7 +145,7 @@ class Window(FluentWindow):
 
         if w.exec():
             QDesktopServices.openUrl(QUrl("https://afdian.net/a/zhiyiYo"))
-    
+
     def closeEvent(self, e):
         self.themeListener.terminate()
         self.themeListener.deleteLater()
@@ -162,6 +160,7 @@ class Window(FluentWindow):
                 100,
                 lambda: self.windowEffect.setMicaEffect(self.winId(), isDarkTheme()),
             )
+
 
 if __name__ == "__main__":
     # setTheme(Theme.DARK)
