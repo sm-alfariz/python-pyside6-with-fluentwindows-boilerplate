@@ -53,6 +53,7 @@ python -m main
 │   └── styles/
 │       ├── dark/                    # Dark-theme QSS stylesheets
 │       └── light/                   # Light-theme QSS stylesheets
+│── tests/*                          # All Test use by pytest
 │
 └── src/
     ├── common/
