@@ -135,6 +135,7 @@ class Window(FluentWindow):
         QApplication.processEvents()
 
     def showMessageBox(self):
+
         w = MessageBox(
             "支持作者🥰",
             "个人开发不易，如果这个项目帮助到了您，可以考虑请作者喝一瓶快乐水🥤。您的支持就是作者开发和维护项目的动力🚀",
@@ -147,9 +148,22 @@ class Window(FluentWindow):
             QDesktopServices.openUrl(QUrl("https://afdian.net/a/zhiyiYo"))
 
     def closeEvent(self, e):
-        self.themeListener.terminate()
-        self.themeListener.deleteLater()
-        super().closeEvent(e)
+        if cfg.get(cfg.confirmExit):
+            w = MessageBox(
+                self.tr("Confirm exit"),
+                self.tr("Are you sure you want to exit the application?"),
+                self,
+            )
+            w.yesButton.setText("Yes")
+            w.cancelButton.setText("No")
+
+            if w.exec():
+                self.themeListener.terminate()
+                self.themeListener.deleteLater()
+                super().closeEvent(e)                
+                QApplication.quit() 
+            else :
+                e.ignore()
 
     def _onThemeChangedFinished(self):
         super()._onThemeChangedFinished()
