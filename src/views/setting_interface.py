@@ -137,7 +137,20 @@ class SettingInterface(ScrollArea):
             + VERSION,
             self.aboutGroup,
         )
-
+        self.autoSaveSetting = SwitchSettingCard(
+            FIF.SAVE,
+            self.tr("Auto save note"),
+            self.tr("Automatically save notes when changed"),
+            cfg.autoSaveNote,
+            self.personalGroup,
+        )
+        self.confirmExitSetting = SwitchSettingCard(
+            FIF.CLOSE,
+            self.tr("Confirm exit"),
+            self.tr("Show a confirmation dialog when exiting the application"),
+            cfg.confirmExit,
+            self.personalGroup,
+        )
         self.__initWidget()
 
     def __initWidget(self):
@@ -168,6 +181,8 @@ class SettingInterface(ScrollArea):
         self.personalGroup.addSettingCard(self.themeColorCard)
         self.personalGroup.addSettingCard(self.zoomCard)
         self.personalGroup.addSettingCard(self.languageCard)
+        self.personalGroup.addSettingCard(self.autoSaveSetting) # example only nothing effect
+        self.personalGroup.addSettingCard(self.confirmExitSetting) 
         self.materialGroup.addSettingCard(self.blurRadiusCard)
         self.aboutGroup.addSettingCard(self.helpCard)
         self.aboutGroup.addSettingCard(self.feedbackCard)
