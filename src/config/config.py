@@ -77,8 +77,7 @@ class Config(QConfig):
     )
 
     # Custom settings
-    # micaEnabled = ConfigItem("MainWindow", "MicaEnabled", isWin11(), BoolValidator())
-    autoSaveNote = ConfigItem("Custom", "AutoSaveNote", False, BoolValidator())
+    autoSaveNote = ConfigItem("Custom", "AutoSaveNote", False, BoolValidator()) # not used example only
     confirmExit = ConfigItem("Custom", "ConfirmExit", False, BoolValidator())
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))

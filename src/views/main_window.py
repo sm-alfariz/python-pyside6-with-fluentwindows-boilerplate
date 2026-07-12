@@ -148,6 +148,7 @@ class Window(FluentWindow):
             QDesktopServices.openUrl(QUrl("https://afdian.net/a/zhiyiYo"))
 
     def closeEvent(self, e):
+        # Read from config cfg.confirmExit to determine whether to show a confirmation dialog
         if cfg.get(cfg.confirmExit):
             w = MessageBox(
                 self.tr("Confirm exit"),
