@@ -76,6 +76,10 @@ class Config(QConfig):
         "Material", "AcrylicBlurRadius", 15, RangeValidator(0, 40)
     )
 
+    # Custom settings
+    # micaEnabled = ConfigItem("MainWindow", "MicaEnabled", isWin11(), BoolValidator())
+    autoSaveNote = ConfigItem("Custom", "AutoSaveNote", False, BoolValidator())
+    confirmExit = ConfigItem("Custom", "ConfirmExit", False, BoolValidator())
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 
