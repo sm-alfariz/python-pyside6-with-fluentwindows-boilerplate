@@ -95,12 +95,14 @@ class TestConfig:
         assert hasattr(Config, "dpiScale")
         assert hasattr(Config, "language")
         assert hasattr(Config, "blurRadius")
+        assert hasattr(Config, "autoSaveNote")
+        assert hasattr(Config, "confirmExit")
 
-    def test_cfg_singleton_theme_dark(self):
-        # Module-level cfg forces DARK theme at import time
+    def test_cfg_singleton_theme_loaded_from_config_json(self):
+        # config.json has ThemeMode=Auto, so after load it's Auto
         from qfluentwidgets import Theme
 
-        assert cfg.themeMode.value == Theme.DARK
+        assert cfg.themeMode.value == Theme.AUTO
 
 
 class TestConstants:
